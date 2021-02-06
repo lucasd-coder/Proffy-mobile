@@ -13,7 +13,7 @@ interface HeaderProps{
 
 const Header: React.FC<HeaderProps> = ({imagem, icon, style}) => {
     return (
-        <View style={styles.container } {...style}>
+        <View style={style} >
            <Image source={imagem} style={styles.imageBackground}/>
            <Image source={icon}  />
            <Text style={styles.title}>Sua plaforma de estudos online. </Text>

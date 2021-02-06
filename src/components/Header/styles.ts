@@ -1,13 +1,7 @@
 import { StyleSheet } from 'react-native';
-const styles = StyleSheet.create({
-    container: {    
-        height: 350,         
-        justifyContent: 'center',
-        alignItems: "center",          
-    },
+const styles = StyleSheet.create({   
     imageBackground : {
-        position: 'absolute',
-           
+        position: 'absolute', 
    },
     title: {
         fontFamily: 'Poppins_400Regular',

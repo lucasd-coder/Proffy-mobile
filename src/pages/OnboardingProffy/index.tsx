@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { View, Text } from 'react-native';
 
 import ViewPower from '@react-native-community/viewpager';
 import { useNavigation } from '@react-navigation/native';
+
 
 
 import RoundedButton from '../../components/RoundedButton';
@@ -18,6 +19,8 @@ import styles from './styles';
 
 function OnboardingProffy() {
     const { navigate } = useNavigation();
+    const viwRef = useRef(null);
+
 
 
     function handlerNavigateToLoginPages() {
@@ -27,10 +30,10 @@ function OnboardingProffy() {
     return (
 
         
-        <ViewPower style={{flex: 1}} initialPage={0}   >
+        <ViewPower style={{flex: 1}} initialPage={0}  ref={viwRef} >
             <View key={1}>
                 <Onboarding 
-                style={{backgroundColor: '#8257E5'}} 
+                style={styles.containerPrimary} 
                 imagem={BackgroundProffy}
                 icon={iconProffy }
             />
@@ -38,13 +41,12 @@ function OnboardingProffy() {
 
                 <Text style={styles.numericProffy}>01.</Text>
             
-                <Text style={styles.titleProffy}>Encontre vários professores para ensinar você</Text>
-
+                <Text style={styles.titleProffy}>Encontre vários professores para ensinar você</Text>                
             </View>
             </View>
             <View key={2}>
                 <Onboarding 
-                style={{backgroundColor: '#04D361'}} 
+                style={styles.containerSegundary} 
                 imagem={BackgroundStudy}
                 icon={iconStudy}
             />

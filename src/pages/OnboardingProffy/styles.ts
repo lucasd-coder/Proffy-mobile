@@ -11,6 +11,18 @@ const styles = StyleSheet.create({
         opacity: 0.16,  
         marginBottom: 35      
     },
+    containerPrimary: {    
+        height: 350,         
+        justifyContent: 'center',
+        alignItems: "center", 
+        backgroundColor: '#8257E5'         
+    },
+    containerSegundary: {    
+        height: 350,         
+        justifyContent: 'center',
+        alignItems: "center",
+        backgroundColor: '#04D361'        
+    },
     titleProffy: {
         color: '#6A6180',
         fontFamily: 'Poppins_400Regular',
@@ -22,6 +34,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginLeft: 40,
         marginTop: 60,
+        backgroundColor: '#f0f0f7'
         
     },
     iconBack: {                

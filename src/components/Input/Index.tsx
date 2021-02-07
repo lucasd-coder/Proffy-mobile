@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ImageSourcePropType, TextInput, TextInputProps, View, Image, GestureResponderEvent } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -10,8 +10,6 @@ interface InputProps extends TextInputProps {
     iconPress?: ((event: GestureResponderEvent) => void) | undefined;
    
 }
-
-
 
 const Input: React.FC<InputProps> = ({icon, iconPress,inputRef,...rest}) => {
     

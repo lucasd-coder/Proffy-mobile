@@ -1,20 +1,19 @@
 import React from 'react';
-import {  TouchableOpacity, Image, StyleProp, ImageStyle } from 'react-native';
-
-import IconBack from '../../assets/images/icons/voltar.png'
+import {  TouchableOpacity, Image, StyleProp, ImageStyle, ImageSourcePropType } from 'react-native';
 
 interface RoundedButtonProps {
     style: StyleProp<ImageStyle>;
     onPress:() => any;
+    source: ImageSourcePropType
 }
 
-const RoundedButton: React.FC<RoundedButtonProps> = ({ style, onPress }) => {
+const RoundedButton: React.FC<RoundedButtonProps> = ({ style, onPress, source }) => {
   return (
     <TouchableOpacity
       style={{ alignItems: 'center', justifyContent: 'center' }}
       onPress={onPress}
     >
-      <Image source={IconBack}  style={style}/>
+      <Image source={source}  style={style}/>
     </TouchableOpacity>
   );
 };

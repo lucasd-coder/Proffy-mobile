@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import { block } from 'react-native-reanimated';
 
 
 const styles = StyleSheet.create({
@@ -37,11 +36,35 @@ const styles = StyleSheet.create({
         backgroundColor: '#f0f0f7'
         
     },
-    iconBack: {                
-        justifyContent: 'space-between',
-        marginTop: 70,
-        marginLeft: 150
+    iconBack: {          
+        marginLeft: 40,
+    },
+    footer: {        
+        alignItems: 'center',
+        justifyContent: "space-around",
+        flexDirection: 'row',
+        marginBottom: 40,
+    },
+    checkboxPrimary: {
+        width: 10,
+        height: 10,
+        borderRadius: 5,
+        marginRight: 10,
+          
+    },
+    checkbox: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row', 
+        marginRight: 80,  
+        
+    },
+    checkboxSegundary: {
+        width: 10,
+        height: 10,
+        borderRadius: 5,
     }
+
 
 });
 

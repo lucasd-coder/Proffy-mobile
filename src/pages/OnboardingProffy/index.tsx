@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text } from 'react-native';
 
-import ViewPower from '@react-native-community/viewpager';
+import ViewPawer from '@react-native-community/viewpager';
 import { useNavigation } from '@react-navigation/native';
 
 import RoundedButton from '../../components/RoundedButton';
@@ -16,10 +16,13 @@ import IconBack from '../../assets/images/icons/voltar.png'
 
 
 import styles from './styles';
+import { useRef } from 'react';
 
 function OnboardingProffy() {
     const { navigate } = useNavigation();
     const [currentPosition, setCurrentPosition] = useState(0);
+    const pagerRef = useRef<ViewPawer>(null);
+   
         
     function handlerNavigateToLoginPages() {
         navigate('PageLogin');
@@ -28,7 +31,7 @@ function OnboardingProffy() {
     return (
 
         <View style={{ flex: 1}}>
-            <ViewPower style={{flex: 1}} initialPage={0} onPageSelected={(e) => setCurrentPosition(e.nativeEvent.position)} >                
+            <ViewPawer style={{flex: 1}} initialPage={0} ref={pagerRef} onPageSelected={(e) => setCurrentPosition(e.nativeEvent.position)} >                
                 
                 <View key={1}>
                     <Onboarding 
@@ -42,8 +45,9 @@ function OnboardingProffy() {
                 
                     <Text style={styles.titleProffy}>Encontre vários professores para ensinar você</Text>                
                 </View>
+                                    
                 </View>
-                <View key={2}>
+                <View key={2} >
                     <Onboarding 
                     style={styles.containerSegundary} 
                     imagem={BackgroundStudy}
@@ -56,9 +60,10 @@ function OnboardingProffy() {
                     <Text style={styles.titleProffy}>Ou dê aulas sobre o que você mais conhece</Text>
 
                 </View>
+
                 </View> 
 
-            </ViewPower>
+            </ViewPawer>
             <View style={styles.footer}>
                 <View style={styles.checkbox} >
                     <Checkbox 
@@ -82,7 +87,11 @@ function OnboardingProffy() {
                     }
                     />
                 </View>
-                <RoundedButton source={IconBack} style={styles.iconBack} onPress={handlerNavigateToLoginPages}/>
+                <RoundedButton 
+                    source={IconBack} 
+                    style={styles.iconBack} 
+                    onPress={handlerNavigateToLoginPages}
+                />
             </View>
         </View>
         

@@ -37,7 +37,8 @@ const styles = StyleSheet.create({
             marginBottom: 40        
         },
         button: {
-            marginTop: 20
+            marginTop: 20,
+            
         },
         checkboxPrimary: {
             width: 10,

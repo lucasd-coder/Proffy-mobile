@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         
     },
     iconBack: {          
-        marginLeft: 40,
+        marginLeft: 40, 
     },
     footer: {        
         alignItems: 'center',

@@ -1,9 +1,15 @@
-import React, { useCallback, useRef, useState } from 'react';
-import { View, Text, KeyboardAvoidingView, Platform, TextInput, ScrollView
+import React, { useCallback, useRef, useState, useEffect } from 'react';
+import { 
+    View, 
+    Text, 
+    KeyboardAvoidingView, 
+    Platform, 
+    TextInput, 
+    ScrollView, 
+    Keyboard,  
 } from 'react-native';
 import { RectButton} from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
-
 
 import backgroundLogin from '../../assets/images/BackgroundLogin.png';
 import logo from '../../assets/images/Proffy.png';
@@ -23,12 +29,31 @@ function PageLogin() {
     const [passwordText, setPasswordText] = useState(String);
     const passwordRef = useRef<TextInput>(null);
     const [isSecureEntry, setIsSecureEntry] = useState(true);
+    const [isBackground, setIsBackground] = useState(false);
+
+    useEffect(() => {
+       const open =  Keyboard.addListener('keyboardDidShow', 
+        () => {
+            setIsBackground(true);
+            }
+        );
+        const close = Keyboard.addListener('keyboardDidHide', 
+         () => {
+             setIsBackground(false);
+         }
+        );
+        return () => {
+            open.remove();
+            close.remove();
+        }
+      }, [])
+    
     const { navigate } = useNavigation();
 
     
     function handlerNavigateToCreateAccount() {
         navigate('CreateAccount');
-    }
+    }  
 
     const handleChecck = useCallback(() => {              
         setToggleCheckBox(state => !state);
@@ -41,22 +66,17 @@ function PageLogin() {
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}
                 enabled
             >
-
             <ScrollView
             keyboardShouldPersistTaps="handled"
             contentContainerStyle={{ flex: 1 }}
             >
-
-        
             <View  style={styles.main}> 
                 <Header 
                     style={styles.header} 
                     imagem={backgroundLogin}
                     icon={logo}                 
                 />
-
-
-                <View  style={styles.form}>
+                <View  style={styles.form} >
                     
                     <View style={styles.section}>
                         <Text style={styles.title}>Fazer login</Text>
@@ -70,10 +90,8 @@ function PageLogin() {
                         autoCorrect={false}                       
                         autoCapitalize='none'
                         keyboardType="email-address"
-                        placeholder="E-mail"
-                        returnKeyType= "next"
-                        blurOnSubmit={false}
-                        autoFocus = {true}
+                        label="E-mail"
+                        returnKeyType= "next"                        
                         onSubmitEditing={() => {
                             passwordRef.current?.focus()
                         }}                  
@@ -83,17 +101,19 @@ function PageLogin() {
                         <Input 
                             icon={isSecureEntry ? notVerSenha : verSenha}                        
                             value={passwordText}
-                            placeholder= "Senha"
                             autoCapitalize="none" 
                             iconPress={() => {
                                 setIsSecureEntry(prev => !prev)
-                            }}                      
+                            }}                            
+                            autoCorrect={false}
                             secureTextEntry={isSecureEntry}                   
                             returnKeyType="send"                        
                             onChangeText={text => { 
                                 setPasswordText(text)
                             }}
-                            inputRef={passwordRef}                                                                                                                   
+                            inputRef={passwordRef}
+                            label="Senha"
+                            isFocusedBorder={true}                                                                                                                 
                         />                
                     </View>
 
@@ -105,17 +125,15 @@ function PageLogin() {
                             onPress={handleChecck}
                             background={ toggleCheckBox ? '#04D361': '#FFFFFF'}                                              
                             color={'#FFFFFF'}
-                    />
-
-                        
+                    />                        
                         <Text style={styles.remember}>Lembrar-se</Text>
-                        <RectButton>
+                        <RectButton >
                             <Text style={styles.forgotIt}>Esqueci minha senha</Text>
                         </RectButton>
 
                     </View>
 
-                        <Button >
+                        <Button stylesButton={[{backgroundColor: isBackground ? '#04D361' : '#DCDCE5'}]} >
                             Entrar
                         </Button>
 

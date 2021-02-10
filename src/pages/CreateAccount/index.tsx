@@ -1,12 +1,13 @@
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useRef, useState, useCallback, useEffect } from 'react';
 import { 
     KeyboardAvoidingView, 
     Platform, 
     ScrollView, 
     Text, 
     View, 
-    TextInput, 
-    Animated } from 'react-native';
+    TextInput,
+    Keyboard, 
+    } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import ViewPawer from '@react-native-community/viewpager';
 
@@ -29,18 +30,25 @@ function CreateAccount() {
     const pagerRef = useRef<ViewPawer>(null);
     const [isSecureEntry, setIsSecureEntry] = useState(true);
     const [passwordText, setPasswordText] = useState(String);
+    const [isBackground, setIsBackground] = useState(false);
 
+    useEffect(() => {
+        const open =  Keyboard.addListener('keyboardDidShow', 
+         () => {
+             setIsBackground(true);
+             }
+         );
+         const close = Keyboard.addListener('keyboardDidHide', 
+          () => {
+              setIsBackground(false);
+          }
+         );
+         return () => {
+             open.remove();
+             close.remove();
+         }
+       }, [])
     
-    // const fadeAnim = useRef(new Animated.Value(0)).current;
-
-    // const buttonAnimated = () => {
-    //     Animated.timing(fadeAnim, {
-    //         toValue: 0,
-    //         duration: 3000,
-
-    //     }).start()
-    // }
-
     const setPagination = useCallback((pageNumber: number)  =>{
         pagerRef.current?.setPage(pageNumber);
     },[]);
@@ -111,7 +119,7 @@ function CreateAccount() {
 
                                     <Input 
                                         autoCapitalize="words"
-                                        placeholder="Nome"
+                                        label="Nome"
                                         returnKeyType="next"
                                         autoFocus={true}
                                         blurOnSubmit={false}                                        
@@ -121,16 +129,19 @@ function CreateAccount() {
                                     />
                                     <Input
                                         autoCapitalize="words"
-                                        placeholder="Sobrenome"
+                                        label="Sobrenome"
                                         returnKeyType="send"
                                         inputRef={sobrenomeRef}                          
                                     />
+
                                     <Button 
-                                        stylesButton={styles.button} 
-                                        onPress={() => setPagination(1)}
+                                        stylesButton={[styles.button,{backgroundColor: isBackground ? '#8257E5' : '#DCDCE5'}]} 
+                                        onPress={() => setPagination(1)}                                                                                                                                                         
                                     >
                                         Próximo
                                     </Button>
+
+                                   
                                 </View>
                             </View>
                             <View key={2} style={styles.containeSegundary}>
@@ -151,7 +162,7 @@ function CreateAccount() {
                                     <Input 
                                         autoCapitalize="none"
                                         keyboardType="email-address"
-                                        placeholder="E-mail"
+                                        label="E-mail"
                                         returnKeyType="next"
                                         blurOnSubmit={false}
                                         autoFocus={true}
@@ -163,7 +174,7 @@ function CreateAccount() {
                                         icon={isSecureEntry ? notVerSenha : verSenha}
                                         value={passwordText}
                                         autoCapitalize="none"
-                                        placeholder="Senha"
+                                        label="Senha"
                                         returnKeyType="send"  
                                         iconPress={() => {
                                             setIsSecureEntry(prev => !prev)
@@ -173,8 +184,9 @@ function CreateAccount() {
                                             setPasswordText(text)
                                         }}
                                         inputRef={passwordRef}
+                                        isFocusedBorder={true}
                                     />
-                                    <Button stylesButton={styles.button}>
+                                    <Button stylesButton={[styles.button, { backgroundColor: isBackground ? '#04D361' : '#DCDCE5'}]}>
                                         Concluir cadastro
                                     </Button>
                                 </View>                    

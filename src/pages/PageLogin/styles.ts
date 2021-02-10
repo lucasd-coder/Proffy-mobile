@@ -18,7 +18,8 @@ const styles = StyleSheet.create({
         marginBottom: 30,        
         left: 0,
         right: 0
-    }, 
+    },
+
     
     form: {
         justifyContent: 'space-between',

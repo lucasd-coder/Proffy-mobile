@@ -10,7 +10,6 @@ interface OnboardingProps{
     
 }
 
-
 const Onboarding: React.FC<OnboardingProps> = ({imagem, icon, style}) => {
     return (
         <View style={styles.container } {...style}>

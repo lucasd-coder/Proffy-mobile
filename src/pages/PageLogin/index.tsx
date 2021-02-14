@@ -6,10 +6,15 @@ import {
     Platform, 
     TextInput, 
     ScrollView, 
-    Keyboard,  
+    Keyboard,
+    Alert   
 } from 'react-native';
 import { RectButton} from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
+import isEmail from 'validator/lib/isEmail';
+
+import * as actions from '../../store/modules/auth/actions';
 
 import backgroundLogin from '../../assets/images/BackgroundLogin.png';
 import logo from '../../assets/images/Proffy.png';
@@ -24,12 +29,16 @@ import CheckBox from '../../components/Checkbox';
 
 import styles from './styles';
 
+  
+
 function PageLogin() {
     const [toggleCheckBox, setToggleCheckBox] = useState(false);
-    const [passwordText, setPasswordText] = useState(String);
+    const [passwordText, setPasswordText] = useState('');
+    const [emailText, setEmailText] = useState('');
     const passwordRef = useRef<TextInput>(null);
     const [isSecureEntry, setIsSecureEntry] = useState(true);
     const [isBackground, setIsBackground] = useState(false);
+   
 
     useEffect(() => {
        const open =  Keyboard.addListener('keyboardDidShow', 
@@ -49,7 +58,7 @@ function PageLogin() {
       }, [])
     
     const { navigate } = useNavigation();
-
+    const dispatch = useDispatch();
     
     function handlerNavigateToCreateAccount() {
         navigate('CreateAccount');
@@ -57,7 +66,24 @@ function PageLogin() {
 
     const handleChecck = useCallback(() => {              
         setToggleCheckBox(state => !state);
-      }, []);
+    }, []);
+
+    const handleSubmit = () => {
+        
+       if(!isEmail(emailText)) {
+            Alert.alert('E-mail inválido');
+       }
+       if(passwordText.length < 5 || passwordText.length > 255) {
+           Alert.alert('Senha inválida');
+       }
+       
+       dispatch(actions.loginRequest(
+            {
+              email: emailText, 
+              password: passwordText
+            }));
+    }
+
     
     return (
         <>
@@ -87,14 +113,17 @@ function PageLogin() {
 
                     <View >
                         <Input                     
-                        autoCorrect={false}                       
+                        autoCorrect={false}
+                        value={emailText}                     
                         autoCapitalize='none'
                         keyboardType="email-address"
                         label="E-mail"
                         returnKeyType= "next"                        
                         onSubmitEditing={() => {
                             passwordRef.current?.focus()
-                        }}                  
+                        }}
+                        onChangeText={state => setEmailText(state)}
+                        labelStyleFilled={emailText.length > 0 ? { top: 4 } : undefined}                
                         />                                    
                     </View>
                     <View >
@@ -113,7 +142,8 @@ function PageLogin() {
                             }}
                             inputRef={passwordRef}
                             label="Senha"
-                            isFocusedBorder={true}                                                                                                                 
+                            isFocusedBorder={true} 
+                            labelStyleFilled={passwordText.length > 0 ? { top: 4 } : undefined }                                                                                                                
                         />                
                     </View>
 
@@ -133,7 +163,10 @@ function PageLogin() {
 
                     </View>
 
-                        <Button stylesButton={[{backgroundColor: isBackground ? '#04D361' : '#DCDCE5'}]} >
+                        <Button 
+                            stylesButton={[{backgroundColor: isBackground ? '#04D361' : '#DCDCE5'}]} 
+                            onPress={() => handleSubmit()}
+                        >
                             Entrar
                         </Button>
 

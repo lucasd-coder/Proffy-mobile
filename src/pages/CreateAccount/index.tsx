@@ -6,10 +6,15 @@ import {
     Text, 
     View, 
     TextInput,
-    Keyboard, 
+    Keyboard,
+    Alert, 
     } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import ViewPawer from '@react-native-community/viewpager';
+import isEmail from 'validator/lib/isEmail';
+import {useDispatch} from 'react-redux';
+
+import * as actions from '../../store/modules/auth/actions';
 
 import Input from '../../components/Input/Index';
 import Button from '../../components/Button';
@@ -24,14 +29,19 @@ import RoundedButton from '../../components/RoundedButton';
 
 function CreateAccount() {
     const { navigate } = useNavigation();
+    const dispatch = useDispatch();
+
     const [currentPosition, setCurrentPosition] = useState(0);
     const passwordRef = useRef<TextInput>(null);
     const sobrenomeRef = useRef<TextInput>(null);
     const pagerRef = useRef<ViewPawer>(null);
     const [isSecureEntry, setIsSecureEntry] = useState(true);
-    const [passwordText, setPasswordText] = useState(String);
+    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [nome, setNome] = useState('');
+    const [sobrenome, setSobrenome] = useState('');
     const [isBackground, setIsBackground] = useState(false);
-
+    
     useEffect(() => {
         const open =  Keyboard.addListener('keyboardDidShow', 
          () => {
@@ -47,13 +57,37 @@ function CreateAccount() {
              open.remove();
              close.remove();
          }
-       }, [])
+       }, []);
+
+       const handleSubmit = () => {
+
+        if (nome.length < 4) {
+            Alert.alert('O nome deve ter mais de 4 caracteres');
+        }
+
+        if (sobrenome.length < 4) {
+           Alert.alert('O sobrenome deve ter mais de 4 caracteres')
+        }
+
+        if(!isEmail(email)) {
+            Alert.alert('E-mail inválido');
+        }
+
+        if(password.length < 5 || password.length > 255) {
+           Alert.alert('Senha inválida');
+        }
+        console.log({nome, sobrenome, email, password});
+        
+        dispatch(
+            actions.registerRequest({ name: nome, surname: sobrenome, email, password}),            
+        );
+         
+    }
     
     const setPagination = useCallback((pageNumber: number)  =>{
         pagerRef.current?.setPage(pageNumber);
     },[]);
 
-    
     function handlerNavigateToLoginPages() {
         navigate('PageLogin');
     }
@@ -119,19 +153,25 @@ function CreateAccount() {
 
                                     <Input 
                                         autoCapitalize="words"
-                                        label="Nome"
+                                        label="Nome"                                        
                                         returnKeyType="next"
                                         autoFocus={true}
                                         blurOnSubmit={false}                                        
                                         onSubmitEditing={() => {
                                             sobrenomeRef.current?.focus()
                                         }}
+                                        labelStyleFilled={nome.length > 0 ? {top:4} : undefined}
+                                        value={nome}
+                                        onChangeText={state => setNome(state)}
                                     />
                                     <Input
                                         autoCapitalize="words"
                                         label="Sobrenome"
                                         returnKeyType="send"
-                                        inputRef={sobrenomeRef}                          
+                                        inputRef={sobrenomeRef}
+                                        labelStyleFilled={sobrenome.length > 0 ? {top:4} : undefined}  
+                                        value={sobrenome}
+                                        onChangeText={state => setSobrenome(state)}                     
                                     />
 
                                     <Button 
@@ -169,24 +209,34 @@ function CreateAccount() {
                                         onSubmitEditing={() => {
                                             passwordRef.current?.focus()
                                         }}
+                                        labelStyleFilled={ email.length > 0 ? {top: 4} : undefined }
+                                        value={email}
+                                        onChangeText={state => setEmail(state)}
                                     />
                                     <Input
                                         icon={isSecureEntry ? notVerSenha : verSenha}
-                                        value={passwordText}
+                                        value={password}
                                         autoCapitalize="none"
                                         label="Senha"
                                         returnKeyType="send"  
                                         iconPress={() => {
-                                            setIsSecureEntry(prev => !prev)
+                                            setIsSecureEntry((prev) => !prev)
                                         }}                         
                                         secureTextEntry={isSecureEntry}
                                         onChangeText={(text) => {
-                                            setPasswordText(text)
+                                            setPassword(text)
                                         }}
                                         inputRef={passwordRef}
                                         isFocusedBorder={true}
+                                        labelStyleFilled={password.length > 0 ? {top: 4} : undefined}
                                     />
-                                    <Button stylesButton={[styles.button, { backgroundColor: isBackground ? '#04D361' : '#DCDCE5'}]}>
+                                    <Button stylesButton={
+                                            [
+                                            styles.button, { backgroundColor: isBackground ? '#04D361' : '#DCDCE5'}
+                                            ]
+                                        }
+                                        onPress={() => handleSubmit()}
+                                    >
                                         Concluir cadastro
                                     </Button>
                                 </View>                    

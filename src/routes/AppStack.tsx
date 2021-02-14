@@ -8,6 +8,7 @@ import StudyTabs from './StudyTabs';
 import OnboardingProffy from '../pages/OnboardingProffy';
 import PageLogin from '../pages/PageLogin';
 import CreateAccount from '../pages/CreateAccount';
+import ConcludedRegister from '../pages/ConcludedRegister';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -18,6 +19,7 @@ function AppStack() {
                 <Screen name="OnboardingProffy" component={OnboardingProffy}/>
                 <Screen name="PageLogin" component={PageLogin} />
                 <Screen name="CreateAccount" component={CreateAccount}/>
+                <Screen name="ConcludedRegister" component={ConcludedRegister} />
                 <Screen name="Landing" component={Landing} />
                 <Screen name="GiveClasses" component={GiveClasses} />
                 <Screen name="Study" component={StudyTabs} />

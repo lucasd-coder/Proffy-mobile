@@ -8,7 +8,8 @@ import {
     Text,
     GestureResponderEvent,
     StyleProp,
-    ViewStyle
+    ViewStyle,
+    TextStyle
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -20,22 +21,23 @@ interface InputProps extends TextInputProps {
     iconPress?: ((event: GestureResponderEvent) => void) | undefined;
     label?: string,
     isFocusedBorder?: boolean;
+    labelStyleFilled?: StyleProp<TextStyle>;
    
 }
 
-const Input: React.FC<InputProps> = ({icon, label, iconPress, isFocusedBorder, inputRef,...rest}) => {
-    const [isFocused, setIsFocused] = useState(false);    
+const Input: React.FC<InputProps> = ({icon, label, iconPress, labelStyleFilled ,isFocusedBorder, inputRef,...rest}) => {
+    const [isFocused, setIsFocused] = useState(false);
 
     const labelStyle = {
         position: 'absolute',
         fontFamily: 'Poppins_400Regular',
         lineHeight: 24,      
-        left: 0,
-        top: isFocused ? 4 : undefined,
+        left: 0,        
+        top:  isFocused ? 4 : undefined,       
         marginLeft: 20,       
         fontSize: isFocused ? 10 : 14,
         color: '#9C98A6',
-      } as StyleProp<ViewStyle>;
+      } as StyleProp<TextStyle>;
 
       const borderLeft = {
         height: isFocused ? 40 : undefined, 
@@ -64,9 +66,9 @@ const Input: React.FC<InputProps> = ({icon, label, iconPress, isFocusedBorder, i
           <View style={borderLeft}/> 
           }
           
-         
-        <Text style={labelStyle}>
-          {label}
+      
+        <Text style={[labelStyle, labelStyleFilled]}>
+          { label }
         </Text>
 
             <TextInput 
@@ -74,7 +76,7 @@ const Input: React.FC<InputProps> = ({icon, label, iconPress, isFocusedBorder, i
                 {...rest} 
                 ref={inputRef}
                 onBlur={handleInputBlur}
-                onFocus={handleInputFocus}
+                onFocus={handleInputFocus}               
                  
             />
 

@@ -21,15 +21,12 @@ import logo from '../../assets/images/Proffy.png';
 import notVerSenha from '../../assets/images/icons/notVerSenha.png';
 import verSenha from '../../assets/images/icons/verSenha.png';
 
-
 import Header from '../../components/Header';
 import Button from '../../components/Button';
 import Input from '../../components/Input/Index';
 import CheckBox from '../../components/Checkbox';
 
 import styles from './styles';
-
-  
 
 function PageLogin() {
     const [toggleCheckBox, setToggleCheckBox] = useState(false);
@@ -71,20 +68,19 @@ function PageLogin() {
     const handleSubmit = () => {
         
        if(!isEmail(emailText)) {
-            Alert.alert('E-mail inválido');
+           return Alert.alert('E-mail inválido');
        }
        if(passwordText.length < 5 || passwordText.length > 255) {
-           Alert.alert('Senha inválida');
+           return Alert.alert('Senha inválida');
        }
        
        dispatch(actions.loginRequest(
             {
               email: emailText, 
               password: passwordText
-            }));
+            }));        
     }
 
-    
     return (
         <>
             <KeyboardAvoidingView
@@ -123,7 +119,7 @@ function PageLogin() {
                             passwordRef.current?.focus()
                         }}
                         onChangeText={state => setEmailText(state)}
-                        labelStyleFilled={emailText.length > 0 ? { top: 4 } : undefined}                
+                        labelStyleFilled={emailText.length > 0 ? { top: 4, fontSize: 10 } : undefined}                
                         />                                    
                     </View>
                     <View >
@@ -143,10 +139,9 @@ function PageLogin() {
                             inputRef={passwordRef}
                             label="Senha"
                             isFocusedBorder={true} 
-                            labelStyleFilled={passwordText.length > 0 ? { top: 4 } : undefined }                                                                                                                
+                            labelStyleFilled={passwordText.length > 0 ? { top: 4, fontSize: 10 } : undefined }                                                                                                                
                         />                
                     </View>
-
 
                     <View style={styles.section}>
                     

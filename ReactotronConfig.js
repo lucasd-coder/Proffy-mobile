@@ -1,11 +1,15 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { reactotronRedux} from 'reactotron-redux';
 import Reactotron from 'reactotron-react-native';
-import sagaPlugin from 'reactotron-redux-saga'
+import sagaPlugin from 'reactotron-redux-saga';
 
 
-Reactotron
+
+const reactotron = Reactotron
   .setAsyncStorageHandler(AsyncStorage)
   .configure()
   .use(sagaPlugin())
-  .useReactNative() 
-  .connect() 
+  .use(reactotronRedux())  
+  .connect()
+
+  export default reactotron;

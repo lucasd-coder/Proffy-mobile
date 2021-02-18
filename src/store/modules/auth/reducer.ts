@@ -34,7 +34,7 @@ export default function(state = initialState, action: AnyAction)  {
 
         case ActionTypes.registercreatedsuccess: {
             draft.user = action.payload.user;
-            draft.error = false;
+            draft.error = false;            
             break;
         }
 

@@ -1,8 +1,9 @@
 import { Alert } from 'react-native';
-
-import { call, put, takeLatest, all } from 'redux-saga/effects';
+import AsyncStorage from '@react-native-community/async-storage';
+import { call, put, takeLatest, all  } from 'redux-saga/effects';
 
 import api from '../../../services/api';
+import { navigate } from '../../../services/RootNavigation';
 import { loginRequest, loginSuccess, loginFailure, registerRequest, registerCreatedSuccess, registerFailure } from './actions';
 import { ActionTypes } from './types';
 
@@ -18,10 +19,18 @@ function* checkLoginRequest({ payload }: RequestLogin) {
         yield put(loginSuccess({...response.data}));
 
         Alert.alert('Feito o login');
-              
-        api.defaults.headers.Authorization = `Bearer ${response.data.token}`;
-        
-        
+    
+        const { token, user } = response.data;
+
+        yield AsyncStorage.multiSet([
+            ['@Proffy:token', token],
+            ['@Proffy:user', JSON.stringify(user)],
+          ]);
+      
+        api.defaults.headers.authorization = `Bearer ${token}`;
+
+    
+            
     } catch (error) { 
                
         Alert.alert(
@@ -40,15 +49,14 @@ function* checkRegisterRequest({ payload }: RequestRegister) {
 
         yield put(registerCreatedSuccess({...response.data}));
 
-        
+        navigate('ConcludedRegister');
 
-        
-               
+                                       
     } catch (error) {
 
+    
         console.log(error);
-        
-        
+                
         Alert.alert(
             'Erro no cadastro',
             'Ocorreu um erro ao fazer cadastro, tente novamente.',
@@ -63,3 +71,4 @@ export default all([
     takeLatest(ActionTypes.loginrequest, checkLoginRequest),
     takeLatest(ActionTypes.registerrequest, checkRegisterRequest),
 ])
+

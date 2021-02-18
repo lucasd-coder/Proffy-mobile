@@ -9,12 +9,13 @@ import OnboardingProffy from '../pages/OnboardingProffy';
 import PageLogin from '../pages/PageLogin';
 import CreateAccount from '../pages/CreateAccount';
 import ConcludedRegister from '../pages/ConcludedRegister';
+import { navigationRef } from '../services/RootNavigation';
 
 const { Navigator, Screen } = createStackNavigator();
 
 function AppStack() {
     return (
-        <NavigationContainer>
+        <NavigationContainer ref={navigationRef}>
             <Navigator screenOptions={{ headerShown: false }}>
                 <Screen name="OnboardingProffy" component={OnboardingProffy}/>
                 <Screen name="PageLogin" component={PageLogin} />

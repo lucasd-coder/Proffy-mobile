@@ -62,25 +62,26 @@ function CreateAccount() {
        const handleSubmit = () => {
 
         if (nome.length < 4) {
-            Alert.alert('O nome deve ter mais de 4 caracteres');
+            return Alert.alert('O nome deve ter mais de 4 caracteres');
         }
 
         if (sobrenome.length < 4) {
-           Alert.alert('O sobrenome deve ter mais de 4 caracteres')
+            return Alert.alert('O sobrenome deve ter mais de 4 caracteres')
         }
 
         if(!isEmail(email)) {
-            Alert.alert('E-mail inválido');
+            return Alert.alert('E-mail inválido');
         }
 
         if(password.length < 5 || password.length > 255) {
-           Alert.alert('Senha inválida');
-        }
-        console.log({nome, sobrenome, email, password});
+           return Alert.alert('Senha inválida');
+        }        
         
         dispatch(
             actions.registerRequest({ name: nome, surname: sobrenome, email, password}),            
-        );
+        ); 
+        
+        
          
     }
     
@@ -160,7 +161,7 @@ function CreateAccount() {
                                         onSubmitEditing={() => {
                                             sobrenomeRef.current?.focus()
                                         }}
-                                        labelStyleFilled={nome.length > 0 ? {top:4} : undefined}
+                                        labelStyleFilled={nome.length > 0 ? {top:4, fontSize: 10} : undefined}
                                         value={nome}
                                         onChangeText={state => setNome(state)}
                                     />
@@ -169,7 +170,7 @@ function CreateAccount() {
                                         label="Sobrenome"
                                         returnKeyType="send"
                                         inputRef={sobrenomeRef}
-                                        labelStyleFilled={sobrenome.length > 0 ? {top:4} : undefined}  
+                                        labelStyleFilled={sobrenome.length > 0 ? {top:4, fontSize: 10} : undefined}  
                                         value={sobrenome}
                                         onChangeText={state => setSobrenome(state)}                     
                                     />

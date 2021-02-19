@@ -6,17 +6,17 @@ import api from '../../../services/api';
 const initialState = {
     token: '',
     user: {},
-    isLoading: false,
+    isLoggedIn: false,
     error: false,
 }
 
-export default function(state = initialState, action: AnyAction)  {
+export default function Auth(state = initialState, action: AnyAction)  {
     return produce(state,  draft => {
     switch (action.type) {
         case ActionTypes.loginsuccess: {
             draft.token = action.payload.token;
             draft.user = action.payload.user;
-            draft.isLoading = true;
+            draft.isLoggedIn = true;
             draft.error = false;
             break;
         }
@@ -54,5 +54,6 @@ export default function(state = initialState, action: AnyAction)  {
     }
   });
 }
+
 
 

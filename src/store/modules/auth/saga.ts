@@ -17,8 +17,6 @@ function* checkLoginRequest({ payload }: RequestLogin) {
         const response = yield call(api.post, '/auth', payload);
         
         yield put(loginSuccess({...response.data}));
-
-        Alert.alert('Feito o login');
     
         const { token, user } = response.data;
 

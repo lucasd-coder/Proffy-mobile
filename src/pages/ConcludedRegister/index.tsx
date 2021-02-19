@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, Text} from 'react-native';
+import { View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 import Button from '../../components/Button';
 
 import Concluded from '../../components/Concluded';
@@ -7,6 +9,12 @@ import Concluded from '../../components/Concluded';
 import styles from './styles';
 
 function ConcludedRegister() {
+    const { navigate } = useNavigation();
+
+    function handlerNavigateToLoginPages() {
+        navigate('PageLogin');
+    }
+
     return (
         <View style={styles.container}>
             <Concluded  
@@ -16,7 +24,10 @@ function ConcludedRegister() {
               textStyles={styles.subTitle}
             />
 
-            <Button stylesButton={styles.button} > 
+            <Button 
+              stylesButton={styles.button} 
+              onPress={handlerNavigateToLoginPages} 
+            > 
                 Fazer login 
             </Button>            
         </View>

@@ -19,11 +19,11 @@ interface ConcludedProps{
 
 const Concluded: React.FC<ConcludedProps> = ({ style, title, imagemBackgroundStyles,titleStyles, text, textStyles}) => {
     return (
-        <View style={style} >
+        <View style={styles.container} >
            <Image source={bacground} style={imagemBackgroundStyles}/>
 
            <View style={styles.section}>
-                <Image source={feito}  />
+                <Image source={feito} style={styles.iconConcluded}  />
                 <Text style={titleStyles}>{title}</Text>
                 <Text style={textStyles}>{text}</Text>
            </View>

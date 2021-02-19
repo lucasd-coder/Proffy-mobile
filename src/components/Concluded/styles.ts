@@ -1,15 +1,25 @@
 import { StyleSheet } from 'react-native';
-const styles = StyleSheet.create({   
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: "center",
+                
+    },
     section: {
-        position: 'absolute'
+        position: 'absolute',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: "center",
+        
+        
+               
     },
-    title: {
-        fontFamily: 'Poppins_400Regular',
-        color: '#D4C2FF',
-        fontSize: 16,
-        lineHeight: 20,
-        maxWidth: 180,       
-    },
+    
+    iconConcluded: {
+        marginBottom: 20
+    }
 
    
 });

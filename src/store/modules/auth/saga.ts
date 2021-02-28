@@ -1,6 +1,6 @@
 import { Alert } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
 import { call, put, takeLatest, all  } from 'redux-saga/effects';
+import { signIn } from '../../../services/storage';
 
 import api from '../../../services/api';
 import { navigate } from '../../../services/RootNavigation';
@@ -10,24 +10,18 @@ import { ActionTypes } from './types';
 type RequestLogin = ReturnType<typeof loginRequest>;
 type RequestRegister = ReturnType<typeof registerRequest>
 
-
 function* checkLoginRequest({ payload }: RequestLogin) {
     try {
        
-        const response = yield call(api.post, '/auth', payload);
+        const response = yield call(api.post, '/auth', payload);                
         
         yield put(loginSuccess({...response.data}));
     
-        const { token, user } = response.data;
+        const { token } = response.data; 
 
-        yield AsyncStorage.multiSet([
-            ['@Proffy:token', token],
-            ['@Proffy:user', JSON.stringify(user)],
-          ]);
-      
-        api.defaults.headers.authorization = `Bearer ${token}`;
-
-    
+        api.defaults.headers.authorization = `Bearer ${token}`;       
+        
+        yield call(signIn, token);        
             
     } catch (error) { 
                
@@ -47,11 +41,9 @@ function* checkRegisterRequest({ payload }: RequestRegister) {
 
         yield put(registerCreatedSuccess({...response.data}));
 
-        navigate('ConcludedRegister');
-
+        navigate('concludedRegister');
                                        
     } catch (error) {
-
     
         console.log(error);
                 

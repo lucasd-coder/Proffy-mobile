@@ -47,6 +47,12 @@ export default function Auth(state = initialState, action: AnyAction)  {
             draft.error = true;
             break;
         }
+        case ActionTypes.logout: {
+            delete api.defaults.headers.Authorization;
+            draft.isLoggedIn = false;
+            draft.error = false;
+            break;
+        }
 
         default: {
             state;

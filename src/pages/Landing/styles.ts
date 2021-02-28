@@ -3,19 +3,32 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        padding: 40,        
+    },
+    header: {
+        height: 350,         
         backgroundColor: '#8257E5',
-        justifyContent: 'center',
-        padding: 40
+        justifyContent: 'center',        
+        flexDirection: 'row',
+        alignItems: 'center'                
     },
 
     banner: {
         width: '100%',
         resizeMode: 'contain'
     },
+    iconPrimary: {
+       alignSelf: 'flex-start',
+       marginTop: '7%',
+       marginLeft: '70%'
+    },
+    imagemHeader: {
+        
+    },
 
     title: {
         fontFamily: 'Poppins_400Regular',
-        color: '#FFF',
+        color: '#6A6180',
         fontSize: 20,
         lineHeight: 30,
         marginTop: 10,
@@ -56,7 +69,7 @@ const styles = StyleSheet.create({
 
     totalConnections: {
         fontFamily: 'Poppins_400Regular',
-        color: '#d4c2ff',
+        color: '#9C98A6',
         fontSize: 12,
         lineHeight: 20,
         maxWidth: 140,

@@ -1,7 +1,10 @@
 import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({   
     imageBackground : {
-        position: 'absolute',            
+        position: 'absolute', 
+        width: '100%',
+        resizeMode: "contain"
+                      
    },
     title: {
         fontFamily: 'Poppins_400Regular',

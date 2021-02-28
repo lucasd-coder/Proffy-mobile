@@ -17,7 +17,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ title, headerRight, children })
     const { navigate } = useNavigation();
 
     function handlerGoBack() {
-        navigate('Landing');
+        navigate('landing');
     }
 
     return (

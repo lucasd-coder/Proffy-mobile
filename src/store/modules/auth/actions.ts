@@ -1,7 +1,5 @@
 import { ActionTypes, IRequestLogin, IRequestRegister} from './types';
 
-
-
 export function loginRequest(payload: IRequestLogin) {
  return {
     type: ActionTypes.loginrequest,
@@ -38,5 +36,11 @@ export function registerFailure(payload : any) {
   return {
     type: ActionTypes.registerfailure,
     payload,
+  };
+}
+
+export function logount() {
+  return {
+    type: ActionTypes.logout,    
   };
 }

@@ -7,6 +7,8 @@ const styles = StyleSheet.create({
     },
     imageBackground : {
         position: 'absolute',
+        width: '100%',
+        resizeMode: "contain"
            
    },
 });

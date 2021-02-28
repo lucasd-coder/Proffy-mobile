@@ -12,7 +12,6 @@ interface CheckBoxProps {
     background: string
 }
 
-
 const CheckBox: React.FC<CheckBoxProps> = ({selected, onPress, background, color, ...props }) => (
     <TouchableOpacity style={[styles.checkBox, { backgroundColor: background }]} onPress={onPress} {...props}>
        { selected && 

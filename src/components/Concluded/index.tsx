@@ -16,7 +16,6 @@ interface ConcludedProps{
     imagemBackgroundStyles?: StyleProp<ImageStyle>
 }
 
-
 const Concluded: React.FC<ConcludedProps> = ({ style, title, imagemBackgroundStyles,titleStyles, text, textStyles}) => {
     return (
         <View style={styles.container} >

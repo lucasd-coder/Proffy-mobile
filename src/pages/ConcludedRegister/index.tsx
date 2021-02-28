@@ -12,7 +12,7 @@ function ConcludedRegister() {
     const { navigate } = useNavigation();
 
     function handlerNavigateToLoginPages() {
-        navigate('PageLogin');
+        navigate('pageLogin');
     }
 
     return (

@@ -18,7 +18,8 @@ const styles = StyleSheet.create({
     },
     
     iconConcluded: {
-        marginBottom: 20
+        marginBottom: 20,
+        resizeMode: "contain"
     }
 
    

@@ -31,7 +31,7 @@ function CreateAccount() {
     const { navigate } = useNavigation();
     const dispatch = useDispatch();
 
-    const [currentPosition, setCurrentPosition] = useState(0);
+    const [currentPosition, setCurrentPosition] = useState(Number);
     const passwordRef = useRef<TextInput>(null);
     const sobrenomeRef = useRef<TextInput>(null);
     const pagerRef = useRef<ViewPawer>(null);
@@ -40,7 +40,7 @@ function CreateAccount() {
     const [email, setEmail] = useState('');
     const [nome, setNome] = useState('');
     const [sobrenome, setSobrenome] = useState('');
-    const [isBackground, setIsBackground] = useState(false);
+    const [isBackground, setIsBackground] = useState(false);       
     
     useEffect(() => {
         const open =  Keyboard.addListener('keyboardDidShow', 
@@ -75,22 +75,25 @@ function CreateAccount() {
 
         if(password.length < 5 || password.length > 255) {
            return Alert.alert('Senha inválida');
-        }        
-        
+        }
+                
         dispatch(
             actions.registerRequest({ name: nome, surname: sobrenome, email, password}),            
         ); 
-        
-        
-         
+                 
     }
     
     const setPagination = useCallback((pageNumber: number)  =>{
         pagerRef.current?.setPage(pageNumber);
     },[]);
 
-    function handlerNavigateToLoginPages() {
-        navigate('PageLogin');
+    function handlerNavigateToLoginPages() {        
+        if (currentPosition === 0) {
+          return navigate('pageLogin');
+        }
+        else {
+            setPagination(0);
+        }        
     }
 
     return (
@@ -210,7 +213,7 @@ function CreateAccount() {
                                         onSubmitEditing={() => {
                                             passwordRef.current?.focus()
                                         }}
-                                        labelStyleFilled={ email.length > 0 ? {top: 4} : undefined }
+                                        labelStyleFilled={ email.length > 0 ? {top: 4, fontSize: 10} : undefined }
                                         value={email}
                                         onChangeText={state => setEmail(state)}
                                     />
@@ -229,7 +232,7 @@ function CreateAccount() {
                                         }}
                                         inputRef={passwordRef}
                                         isFocusedBorder={true}
-                                        labelStyleFilled={password.length > 0 ? {top: 4} : undefined}
+                                        labelStyleFilled={password.length > 0 ? {top: 4, fontSize: 10} : undefined}
                                     />
                                     <Button stylesButton={
                                             [

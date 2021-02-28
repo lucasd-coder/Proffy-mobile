@@ -8,7 +8,6 @@ import PageHeader from '../../components/PageHeader';
 import TeacherItem, { Teacher } from '../../components/TeacherItem';
 import api from '../../services/api';
 
-
 import styles from './styles';
 import { useFocusEffect } from '@react-navigation/native';
 
@@ -42,21 +41,21 @@ function TeacherList() {
         setIsFiltersVisible(!isFiltersVisible);
     }
 
-    // async function handlerFiltersSubmit() {
-    //     loadFavorites();
+    async function handlerFiltersSubmit() {
+        loadFavorites();
 
-    //     const response = await api.get('classes', {
-    //         params: {
-    //             subject,
-    //             week_day,
-    //             time
-    //         }
-    //     });
+        const response = await api.get('classes', {
+            params: {
+                subject,
+                week_day,
+                time
+            }
+        });
 
-    //     setIsFiltersVisible(false);
-    //     setTeachers(response.data);
+        setIsFiltersVisible(false);
+        setTeachers(response.data);
 
-    // }
+    }
 
     return (
         <View style={styles.container}>
@@ -104,9 +103,9 @@ function TeacherList() {
 
                             </View>
                         </View>
-                        {/* <RectButton onPress={handlerFiltersSubmit} style={styles.submitButton}>
+                        <RectButton onPress={handlerFiltersSubmit} style={styles.submitButton}>
                             <Text style={styles.submitButtonText}>Filtar</Text>
-                        </RectButton> */}
+                        </RectButton>
                         <RectButton style={styles.submitButton}>
                             <Text style={styles.submitButtonText}>Filtar</Text>
                         </RectButton>

@@ -34,9 +34,8 @@ function PageLogin() {
     const [emailText, setEmailText] = useState('');
     const passwordRef = useRef<TextInput>(null);
     const [isSecureEntry, setIsSecureEntry] = useState(true);
-    const [isBackground, setIsBackground] = useState(false);
-   
-
+    const [isBackground, setIsBackground] = useState(false);    
+    
     useEffect(() => {
        const open =  Keyboard.addListener('keyboardDidShow', 
         () => {
@@ -58,7 +57,7 @@ function PageLogin() {
     const dispatch = useDispatch();
     
     function handlerNavigateToCreateAccount() {
-        navigate('CreateAccount');
+        navigate('createAccount');               
     }  
 
     const handleChecck = useCallback(() => {              
@@ -72,7 +71,7 @@ function PageLogin() {
        }
        if(passwordText.length < 5 || passwordText.length > 255) {
            return Alert.alert('Senha inválida');
-       }
+       }              
        
        dispatch(actions.loginRequest(
             {

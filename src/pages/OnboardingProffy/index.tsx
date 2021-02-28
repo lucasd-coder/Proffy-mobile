@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { View, Text } from 'react-native';
 
 import ViewPawer from '@react-native-community/viewpager';
@@ -12,8 +12,7 @@ import iconStudy from '../../assets/images/icons/give-classesMaior.png'
 import Onboarding from '../../components/Onboarding';
 import BackgroundProffy from '../../assets/images/BackgroundProffy.png';
 import BackgroundStudy from '../../assets/images/BackgroundStudy.png';
-import IconBack from '../../assets/images/icons/voltar.png'
-
+import IconBack from '../../assets/images/icons/voltar.png';
 
 import styles from './styles';
 import { useRef } from 'react';
@@ -22,10 +21,18 @@ function OnboardingProffy() {
     const { navigate } = useNavigation();
     const [currentPosition, setCurrentPosition] = useState(0);
     const pagerRef = useRef<ViewPawer>(null);
-   
+    
+    const setPagination = useCallback((pageNumber: number)  =>{
+        pagerRef.current?.setPage(pageNumber);
+    },[]);
         
     function handlerNavigateToLoginPages() {
-        navigate('PageLogin');
+        if (currentPosition === 0) {
+            setPagination(1);
+        } else {
+            navigate('pageLogin');           
+        }
+       
     }
     
     return (
@@ -33,7 +40,7 @@ function OnboardingProffy() {
         <View style={{ flex: 1}}>
             <ViewPawer style={{flex: 1}} initialPage={0} ref={pagerRef} onPageSelected={(e) => setCurrentPosition(e.nativeEvent.position)} >                
                 
-                <View key={1}>
+                <View key={1}>                    
                     <Onboarding 
                     style={styles.containerPrimary} 
                     imagem={BackgroundProffy}
@@ -95,8 +102,6 @@ function OnboardingProffy() {
             </View>
         </View>
         
-
-
     )
 }
 

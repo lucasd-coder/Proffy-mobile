@@ -48,16 +48,13 @@ const Input: React.FC<InputProps> = ({icon, label, iconPress, labelStyleFilled ,
 
       } as StyleProp<ViewStyle>
 
-
       const handleInputFocus = useCallback(() => {
         setIsFocused(true);
       }, []);
 
       const handleInputBlur = useCallback(() => {
           setIsFocused(false);
-      }, [])
-
-    
+      }, [])    
     
     return (
         <View style={styles.contaier} >
@@ -65,8 +62,7 @@ const Input: React.FC<InputProps> = ({icon, label, iconPress, labelStyleFilled ,
           {isFocusedBorder && 
           <View style={borderLeft}/> 
           }
-          
-      
+                
         <Text style={[labelStyle, labelStyleFilled]}>
           { label }
         </Text>

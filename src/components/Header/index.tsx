@@ -10,7 +10,6 @@ interface HeaderProps{
     
 }
 
-
 const Header: React.FC<HeaderProps> = ({imagem, icon, style}) => {
     return (
         <View style={style} >

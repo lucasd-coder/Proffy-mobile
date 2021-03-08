@@ -150,7 +150,7 @@ function CreateAccount() {
                                     </Text>
                                 </View>
 
-                                <View style={styles.form}>
+                                <View style={[styles.form, isBackground ? { paddingBottom: '38%' } : undefined]}>
                                     <Text style={styles.titleForm}>
                                         01. Quem é você?
                                     </Text>
@@ -198,7 +198,7 @@ function CreateAccount() {
                                     </Text>
                             </View>
 
-                                <View style={styles.form}>
+                                <View style={[styles.form, isBackground ? { paddingBottom: '33%' } : undefined]}>
                                     <Text style={styles.titleForm}>
                                         02. Email e Senha?
                                     </Text>

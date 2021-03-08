@@ -11,10 +11,13 @@ import {
 } from 'react-native';
 import { RectButton} from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import isEmail from 'validator/lib/isEmail';
+import encrypt from 'crypto-es';
+import { setData, getData, removeData } from '../../services/storage';
 
 import * as actions from '../../store/modules/auth/actions';
+import { secret_encrypt } from '../../../config';
 
 import backgroundLogin from '../../assets/images/BackgroundLogin.png';
 import logo from '../../assets/images/Proffy.png';
@@ -33,26 +36,55 @@ function PageLogin() {
     const [passwordText, setPasswordText] = useState('');
     const [emailText, setEmailText] = useState('');
     const passwordRef = useRef<TextInput>(null);
+    const emailRef = useRef<TextInput>(null);
     const [isSecureEntry, setIsSecureEntry] = useState(true);
-    const [isBackground, setIsBackground] = useState(false);    
-    
+    const [isBackground, setIsBackground] = useState(false);
+
     useEffect(() => {
-       const open =  Keyboard.addListener('keyboardDidShow', 
-        () => {
-            setIsBackground(true);
-            }
-        );
-        const close = Keyboard.addListener('keyboardDidHide', 
+        const open =  Keyboard.addListener('keyboardDidShow', 
          () => {
-             setIsBackground(false);
+             setIsBackground(true);
+             }
+         );
+         const close = Keyboard.addListener('keyboardDidHide', 
+          () => {
+              setIsBackground(false);
+          }
+         );
+         return () => {
+             open.remove();
+             close.remove();
          }
-        );
-        return () => {
-            open.remove();
-            close.remove();
-        }
-      }, [])
+       }, [])
     
+    useEffect( () => {
+        async function emailLoad() {
+                    
+            const emailStorage = await getData('@Proffy:cryp');           
+
+            if (emailStorage) {
+                    const decrypt = encrypt.AES.decrypt(emailStorage, secret_encrypt);
+                    const email = decrypt.toString(encrypt.enc.Utf8);
+                    setEmailText(email);
+                    setToggleCheckBox(state => !state);
+            } 
+        }
+        emailLoad();        
+    }, []);
+
+    const addEmailStore = useCallback(async (key: string, value: string) => {
+            await setData(key, value);
+    }, []);
+
+    const removeEmailStore = useCallback(async (key: string) => {
+         await removeData(key);
+    }, []);
+   
+    if(toggleCheckBox && isEmail(emailText) && !emailRef.current?.isFocused()) {
+         const emailEncrypt = encrypt.AES.encrypt(emailText, secret_encrypt).toString();
+         addEmailStore('@Proffy:cryp', emailEncrypt);
+    }
+                   
     const { navigate } = useNavigation();
     const dispatch = useDispatch();
     
@@ -91,7 +123,7 @@ function PageLogin() {
             keyboardShouldPersistTaps="handled"
             contentContainerStyle={{ flex: 1 }}
             >
-            <View  style={styles.main}> 
+            <View  style={[styles.main, isBackground ? { paddingBottom: '55%' } : undefined ]}> 
                 <Header 
                     style={styles.header} 
                     imagem={backgroundLogin}
@@ -113,6 +145,7 @@ function PageLogin() {
                         autoCapitalize='none'
                         keyboardType="email-address"
                         label="E-mail"
+                        inputRef={emailRef}
                         returnKeyType= "next"                        
                         onSubmitEditing={() => {
                             passwordRef.current?.focus()

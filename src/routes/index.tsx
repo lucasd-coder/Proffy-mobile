@@ -22,7 +22,7 @@ function MainRoute() {
 
      useEffect(() => {
           async function loadStoragedData(): Promise<void> {
-            const token = await AsynsStorage.getItem('@Proffy:token');                                  
+            const token = await AsynsStorage.getItem('@Proffy:token');                                                                              
                             
             api.defaults.headers.authorization = `Bearer ${token}`;                                                        
           }      

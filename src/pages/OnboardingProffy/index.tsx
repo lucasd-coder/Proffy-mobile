@@ -22,7 +22,7 @@ function OnboardingProffy() {
     const [currentPosition, setCurrentPosition] = useState(0);
     const pagerRef = useRef<ViewPawer>(null);
     
-    const setPagination = useCallback((pageNumber: number)  =>{
+    const setPagination = useCallback((pageNumber: number)  =>{                
         pagerRef.current?.setPage(pageNumber);
     },[]);
         
@@ -31,8 +31,7 @@ function OnboardingProffy() {
             setPagination(1);
         } else {
             navigate('pageLogin');           
-        }
-       
+        }       
     }
     
     return (
@@ -48,7 +47,7 @@ function OnboardingProffy() {
                 />
                 <View style={styles.container}>
 
-                    <Text style={styles.numericProffy}>01.</Text>
+                    <Text style={styles.numericProffy}>01.</Text>                                        
                 
                     <Text style={styles.titleProffy}>Encontre vários professores para ensinar você</Text>                
                 </View>

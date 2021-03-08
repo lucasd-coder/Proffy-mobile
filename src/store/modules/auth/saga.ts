@@ -1,6 +1,6 @@
 import { Alert } from 'react-native';
 import { call, put, takeLatest, all  } from 'redux-saga/effects';
-import { signIn } from '../../../services/storage';
+import { setData } from '../../../services/storage';
 
 import api from '../../../services/api';
 import { navigate } from '../../../services/RootNavigation';
@@ -21,7 +21,7 @@ function* checkLoginRequest({ payload }: RequestLogin) {
 
         api.defaults.headers.authorization = `Bearer ${token}`;       
         
-        yield call(signIn, token);        
+        yield call(setData, '@Proffy:token' ,token);        
             
     } catch (error) { 
                

@@ -1,24 +1,55 @@
-import React, { useState } from 'react';
-import { View, ScrollView, Text, TextInput } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, ScrollView, Text, TextInput, Image, Keyboard, KeyboardAvoidingView, Platform } from 'react-native';
 import { BorderlessButton, RectButton } from 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons';
 import AsyncStore from '@react-native-community/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 
 import PageHeader from '../../components/PageHeader';
 import TeacherItem, { Teacher } from '../../components/TeacherItem';
 import api from '../../services/api';
 
+import find from '../../assets/images/encontrado.png';
+import vector from '../../assets/images/icons/vector.png';
+import notVector from '../../assets/images/icons/visibleFilter.png';
+
 import styles from './styles';
-import { useFocusEffect } from '@react-navigation/native';
 
 function TeacherList() {
     const [teachers, setTeachers] = useState([]);
     const [favorites, setFavorites] = useState<number[]>([]);
     const [isFiltersVisible, setIsFiltersVisible] = useState(false);
-
+    const [totalProffys, setTotalProffys] = useState(Number);    
+    
     const [subject, setSubject] = useState('');
     const [week_day, setWeek_day] = useState('');
     const [time, setTime] = useState('');
+    const [isBackground, setIsBackground] = useState(false);
+
+    
+    useEffect(() => {
+        const open =  Keyboard.addListener('keyboardDidShow', 
+         () => {
+             setIsBackground(true);
+             }
+         );
+         const close = Keyboard.addListener('keyboardDidHide', 
+          () => {
+              setIsBackground(false);
+          }
+         );
+         return () => {
+             open.remove();
+             close.remove();
+         }
+       }, [])
+
+   
+    useEffect(() => {
+        api.get('proffys').then((response) => {
+          setTotalProffys(response.headers['x-total-count']);
+        })
+    }, []);
 
     function loadFavorites() {
         AsyncStore.getItem('favorites').then((response) => {
@@ -50,24 +81,45 @@ function TeacherList() {
                 week_day,
                 time
             }
-        });
+        });  
 
         setIsFiltersVisible(false);
         setTeachers(response.data);
 
     }
-
+    
     return (
         <View style={styles.container}>
             <PageHeader
                 title="Proffys disponíveis"
-                headerRight={(
-                    <BorderlessButton onPress={handlerToggleFiltersVisible}>
-                        <Feather name="filter" size={20} color="#FFF" />
-                    </BorderlessButton>
-                )}
+                titleHeader="Estudar"
+                 headerRight={(
+                     <>                        
+                        <View style={styles.containerFind}>                            
+                                <Image source={find} style={styles.find}/>
+                                <Text style={styles.totalProffy}> {`${totalProffys}  proffys`} </Text>
+                        </View>
+                        <View style={styles.containerFilter} >
+                             <BorderlessButton onPress={handlerToggleFiltersVisible}> 
+                                <Feather name="filter" size={20} color='#04D361' />
+                             </BorderlessButton> 
+
+                            <Text style={styles.textFilter}>Filtrar por dia, hora e matéria</Text>
+                            <Image source={isFiltersVisible ? notVector : vector} style={styles.imageFilterVisible}/>
+                            <View style={styles.filterLine}/>                                                        
+                        </View>
+                     </>                     
+                 )}
+
             >
                 {isFiltersVisible && (
+                 <>
+                    <KeyboardAvoidingView
+                            style={{ flex: 1}}
+                            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+                            enabled
+                    >
+                
                     <View style={styles.searchForm}>
                         <Text style={styles.label}>Matéria</Text>
                         <TextInput
@@ -91,7 +143,7 @@ function TeacherList() {
 
                             </View>
 
-                            <View style={styles.inputBlock}>
+                            <View style={[styles.inputBlock, { marginTop: 20 }]}>
                                 <Text style={styles.label}>Horário</Text>
                                 <TextInput
                                     style={styles.input}
@@ -106,11 +158,9 @@ function TeacherList() {
                         <RectButton onPress={handlerFiltersSubmit} style={styles.submitButton}>
                             <Text style={styles.submitButtonText}>Filtar</Text>
                         </RectButton>
-                        <RectButton style={styles.submitButton}>
-                            <Text style={styles.submitButtonText}>Filtar</Text>
-                        </RectButton>
-
                     </View>
+                  </KeyboardAvoidingView>
+                 </>
                 )}
             </PageHeader>
 
@@ -121,13 +171,15 @@ function TeacherList() {
                     paddingBottom: 16,
                 }}
             >
-                {teachers.map((teacher: Teacher) => {
+                 {teachers.map((teacher: Teacher) => {
+                     
                     return <TeacherItem
                         key={teacher.id}
                         teacher={teacher}
                         favorited={favorites.includes(teacher.id)}
-                    />
-                })}
+                    />                     
+                                                                                           
+                })}             
             </ScrollView>
         </View >
     );

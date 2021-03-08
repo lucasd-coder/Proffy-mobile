@@ -1,9 +1,9 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
-export const getData = async () => {
+export const getData = async (key: string) => {
   try {
      const value = await AsyncStorage.getItem(
-        '@Proffy:token'
+        key
        );
       if (value != null) {
         return value
@@ -15,19 +15,19 @@ export const getData = async () => {
   }
 };
 
-export const signIn = async (token: any) => {
+export const setData = async (key: string, token: string) => {
    try { 
        
-    await AsyncStorage.setItem('@Proffy:token', token )
+    await AsyncStorage.setItem(key, token )
    } catch (error) {
 
      console.log('AsyncStorage error during token store:', error);
    }
 }
 
-export const signOut = async () => {
+export const removeData = async (key: string) => {
   try {
-    await AsyncStorage.removeItem('@Proffy:token');    
+    await AsyncStorage.removeItem(key);    
 
   } catch (error) {
     console.log(error);    

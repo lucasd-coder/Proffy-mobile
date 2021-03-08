@@ -11,8 +11,8 @@ import styles from './styles';
 import api from '../../services/api';
 
 export interface Teacher {
-    id: number;
-    avatar: string;
+    url: string;
+    id: number;   
     bio: string;
     cost: number;
     name: string;
@@ -25,10 +25,11 @@ interface TeacherItemProps {
     favorited: boolean;
 }
 
-const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, favorited }) => {
-
+const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, favorited }) => {    
+    
     const [isFavorited, setIsFavorited] = useState(favorited);
-
+                         
+        
     function handlerLinkTowhatsapp() {
 
         api.post('connections', {
@@ -69,10 +70,10 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, favorited }) => {
     return (
         <View style={styles.container}>
             <View style={styles.profile}>
-                <Image
-                    style={styles.avatar}
-                    source={{ uri: teacher.avatar }}
-                />
+               <Image 
+                  source={{ uri: teacher.url }}                   
+                  style={styles.avatar}              
+               />
 
                 <View style={styles.profileInfo}>
                     <Text style={styles.name}>{teacher.name}</Text>

@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
@@ -12,6 +12,21 @@ const styles = StyleSheet.create({
 
     searchForm: {
         marginBottom: 10,
+        paddingBottom: Platform.OS === 'android' ? 120 : 40,
+    },
+    find: {
+        height: 18,
+        width: 18,
+        
+    },
+
+    totalProffy: {
+        marginLeft: 4,
+        fontSize: 12,
+        fontFamily: 'Poppins_400Regular',
+        lineHeight: 18,
+        color: '#D4C2FF',
+                
     },
 
     label: {
@@ -37,6 +52,14 @@ const styles = StyleSheet.create({
         marginTop: 4,
         marginBottom: 16,
     },
+    containerFind: {
+        justifyContent: 'center',
+        textAlign: "center",
+        flexDirection: 'row',
+        marginBottom: '30%',
+        marginLeft: '50%',               
+
+    },
 
     submitButton: {
         backgroundColor: '#04d361',
@@ -51,8 +74,34 @@ const styles = StyleSheet.create({
         color: '#FFF',
         fontFamily: 'Archivo_700Bold',
         fontSize: 16,
+    },
+    containerFilter: {
+       position: 'absolute',
+       flexDirection: 'row',
+       marginTop: 30,           
+       paddingTop: 70,
+       marginLeft: '6%'
+                                       
+    },
+    textFilter: {
+        marginLeft: 8,
+        fontSize: 16,
+        fontFamily: 'Poppins_400Regular',
+        lineHeight: 19,
+        color: '#D4C2FF',
+        marginRight: 20
+    },
+    filterLine: {               
+        position: 'absolute',
+        borderBottomWidth: 2,
+        borderBottomColor: '#9871F5',
+        width: 316,
+        height: 100,
+        margin: 10,           
+    },
+    imageFilterVisible: {        
+      marginLeft: 30
     }
-
 });
 
 export default styles;

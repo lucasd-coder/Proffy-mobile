@@ -4,7 +4,7 @@ import { RectButton } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
 import api from '../../services/api';
-import { signOut } from '../../services/storage';
+import { removeData } from '../../services/storage';
 import {useDispatch} from 'react-redux';
 
 import * as actions from '../../store/modules/auth/actions';
@@ -43,7 +43,7 @@ function Landing() {
 
     const logout = useCallback( async () => {        
         
-        await signOut();
+        await removeData('@Proffy:token');
         
         dispatch(actions.logount());     
                                                      

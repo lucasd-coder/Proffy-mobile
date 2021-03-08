@@ -4,15 +4,13 @@ const styles = StyleSheet.create({
         container: {
             flex: 1,
             justifyContent: 'center',            
-            padding: 0,
-            // paddingBottom: Platform.OS === 'android' ? 120 : 40,
+            padding: 0,           
         },
         section: {
             alignSelf: 'flex-start',
             marginLeft: 32,
             maxWidth: 280,
-            marginBottom: 40,
-            // marginVertical: 40
+            marginBottom: 40,           
         },
         title: {
             fontFamily: 'Poppins_600SemiBold',

@@ -19,8 +19,7 @@ const styles = StyleSheet.create({
     avatar: {
         width: 64,
         height: 64,
-        borderRadius: 32,
-        backgroundColor: '#eee'
+        borderRadius: 32,             
     },
 
     profileInfo: {

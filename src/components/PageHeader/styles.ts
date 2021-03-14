@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Archivo_700Bold } from '@expo-google-fonts/archivo';
+
 const styles = StyleSheet.create({
     container: {
         padding: 70,
@@ -20,8 +20,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-around',        
-        marginTop: '15%',        
-                                                   
+        marginTop: '15%',                                                   
     },
     
     titleHeader: {        
@@ -39,8 +38,8 @@ const styles = StyleSheet.create({
         maxWidth: 210,
         marginVertical: 40,        
         marginBottom: '40%',
-        marginLeft: '6%'               
     },
+    
 
 
 });

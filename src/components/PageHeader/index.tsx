@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { View, Image, Text } from 'react-native';
+import { View, Image, Text, StyleProp, ViewStyle, TextStyle } from 'react-native';
 import { BorderlessButton } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
@@ -9,12 +9,28 @@ import logoImg from '../../assets/images/logo.png';
 interface PageHeaderProps {
     title: string;
     headerRight?: ReactNode;
-    titleHeader: string;
+    titleHeader?: string;
+    styleContainerMain?: StyleProp<ViewStyle>;
+    titleStyle?: StyleProp<TextStyle>;
+    subTitle?: string;
+    subTitleStyle?: StyleProp<TextStyle>;
+    styleHeader?: StyleProp<ViewStyle>;
 }
 
 import styles from './styles';
 
-const PageHeader: React.FC<PageHeaderProps> = ({ titleHeader, title, headerRight, children }) => {
+const PageHeader: React.FC<PageHeaderProps> = ({     
+        titleStyle, 
+        styleContainerMain, 
+        titleHeader, 
+        title, 
+        headerRight,
+        subTitle,
+        subTitleStyle,
+        styleHeader,
+        children 
+    }) => {
+
     const { navigate } = useNavigation();
 
     function handlerGoBack() {
@@ -22,7 +38,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ titleHeader, title, headerRight
     }
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, styleContainerMain ]}>           
             <View style={styles.containerTopBar}>                
                     <BorderlessButton onPress={handlerGoBack}>
                         <Image  source={backIcon} resizeMode="contain" />
@@ -31,10 +47,14 @@ const PageHeader: React.FC<PageHeaderProps> = ({ titleHeader, title, headerRight
                     <Image source={logoImg} resizeMode="contain" />
             </View>                        
 
-            <View style={styles.header}>
-                <Text style={styles.title}>
+            <View style={[styles.header, styleHeader]}>
+                <Text style={[styles.title, titleStyle]}>
                     {title}
                 </Text>
+                
+                    <Text style={subTitleStyle}>
+                        {subTitle}
+                    </Text>               
                 {headerRight}
                 
             </View>

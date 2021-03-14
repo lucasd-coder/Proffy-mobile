@@ -1,4 +1,4 @@
-import { Platform, StyleSheet } from 'react-native';
+import {  StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
@@ -11,13 +11,12 @@ const styles = StyleSheet.create({
     },
 
     searchForm: {
-        marginBottom: 10,
-        paddingBottom: Platform.OS === 'android' ? 120 : 40,
+        marginBottom: 10,        
     },
     find: {
         height: 18,
         width: 18,
-        
+        marginLeft: 50       
     },
 
     totalProffy: {
@@ -25,8 +24,7 @@ const styles = StyleSheet.create({
         fontSize: 12,
         fontFamily: 'Poppins_400Regular',
         lineHeight: 18,
-        color: '#D4C2FF',
-                
+        color: '#D4C2FF',                    
     },
 
     label: {
@@ -80,7 +78,7 @@ const styles = StyleSheet.create({
        flexDirection: 'row',
        marginTop: 30,           
        paddingTop: 70,
-       marginLeft: '6%'
+    //    marginLeft: '6%'
                                        
     },
     textFilter: {

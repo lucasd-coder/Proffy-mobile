@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: '#E6E6F0',             
         flexDirection: 'row',
-        alignItems: 'center',             
+        alignItems: 'center',
     },
    
     textInput: {
@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
     icon: {
         marginRight: 16
     }
-
 });
 
 export default styles;

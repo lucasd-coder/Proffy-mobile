@@ -24,7 +24,6 @@ export default function App() {
     Poppins_600SemiBold
   });
 
-
   if (!fontsLoading) {
     return <AppLoading />
   } else {

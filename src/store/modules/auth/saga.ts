@@ -12,9 +12,10 @@ type RequestRegister = ReturnType<typeof registerRequest>
 
 function* checkLoginRequest({ payload }: RequestLogin) {
     try {
-       
-        const response = yield call(api.post, '/auth', payload);                
         
+                
+        const response = yield call(api.post, '/auth', payload);       
+                              
         yield put(loginSuccess({...response.data}));
     
         const { token } = response.data; 

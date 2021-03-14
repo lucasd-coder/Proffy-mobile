@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, ScrollView, Text, TextInput, Image, Keyboard, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, ScrollView, Text, TextInput, Image } from 'react-native';
 import { BorderlessButton, RectButton } from 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons';
 import AsyncStore from '@react-native-community/async-storage';
@@ -24,31 +24,12 @@ function TeacherList() {
     const [subject, setSubject] = useState('');
     const [week_day, setWeek_day] = useState('');
     const [time, setTime] = useState('');
-    const [isBackground, setIsBackground] = useState(false);
-
-    
+           
     useEffect(() => {
-        const open =  Keyboard.addListener('keyboardDidShow', 
-         () => {
-             setIsBackground(true);
-             }
-         );
-         const close = Keyboard.addListener('keyboardDidHide', 
-          () => {
-              setIsBackground(false);
-          }
-         );
-         return () => {
-             open.remove();
-             close.remove();
-         }
-       }, [])
-
-   
-    useEffect(() => {
-        api.get('proffys').then((response) => {
+        api.get('proffys')
+          .then((response) => {
           setTotalProffys(response.headers['x-total-count']);
-        })
+        })        
     }, []);
 
     function loadFavorites() {
@@ -81,19 +62,19 @@ function TeacherList() {
                 week_day,
                 time
             }
-        });  
+        });
 
         setIsFiltersVisible(false);
         setTeachers(response.data);
 
     }
     
-    return (
+    return (       
         <View style={styles.container}>
             <PageHeader
                 title="Proffys disponíveis"
-                titleHeader="Estudar"
-                 headerRight={(
+                titleHeader="Estudar"                              
+                headerRight={(
                      <>                        
                         <View style={styles.containerFind}>                            
                                 <Image source={find} style={styles.find}/>
@@ -114,13 +95,9 @@ function TeacherList() {
             >
                 {isFiltersVisible && (
                  <>
-                    <KeyboardAvoidingView
-                            style={{ flex: 1}}
-                            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-                            enabled
-                    >
+                   
                 
-                    <View style={styles.searchForm}>
+                    <View style={[styles.searchForm]}>
                         <Text style={styles.label}>Matéria</Text>
                         <TextInput
                             style={styles.input}
@@ -159,10 +136,10 @@ function TeacherList() {
                             <Text style={styles.submitButtonText}>Filtar</Text>
                         </RectButton>
                     </View>
-                  </KeyboardAvoidingView>
+                  
                  </>
                 )}
-            </PageHeader>
+            </PageHeader>                   
 
             <ScrollView
                 style={styles.teacherList}
@@ -181,7 +158,7 @@ function TeacherList() {
                                                                                            
                 })}             
             </ScrollView>
-        </View >
+        </View >       
     );
 }
 

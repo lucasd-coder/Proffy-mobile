@@ -22,10 +22,20 @@ interface InputProps extends TextInputProps {
     label?: string,
     isFocusedBorder?: boolean;
     labelStyleFilled?: StyleProp<TextStyle>;
+    styleContainer?:  StyleProp<ViewStyle>;
    
 }
 
-const Input: React.FC<InputProps> = ({icon, label, iconPress, labelStyleFilled ,isFocusedBorder, inputRef,...rest}) => {
+const Input: React.FC<InputProps> = ({
+    icon, 
+    label, 
+    iconPress, 
+    labelStyleFilled, 
+    isFocusedBorder, 
+    inputRef,
+    styleContainer,
+    ...rest}) => {
+
     const [isFocused, setIsFocused] = useState(false);
 
     const labelStyle = {
@@ -57,7 +67,7 @@ const Input: React.FC<InputProps> = ({icon, label, iconPress, labelStyleFilled ,
       }, [])    
     
     return (
-        <View style={styles.contaier} >
+        <View style={[styles.contaier, styleContainer]} >
 
           {isFocusedBorder && 
           <View style={borderLeft}/> 

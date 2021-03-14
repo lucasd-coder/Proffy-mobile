@@ -14,6 +14,7 @@ import ConcludedRegister from '../pages/ConcludedRegister';
 import Landing from '../pages/Landing';
 import GiveClasses from '../pages/GiveClasses';
 import StudyTabs from './StudyTabs';
+import ConcludedRegisterProffy from '../pages/ConcludedRegisterProffy';
 
 const Main = createStackNavigator();
 
@@ -33,13 +34,14 @@ function MainRoute() {
           onboardingProffy: OnboardingProffy,
           pageLogin: PageLogin,
           createAccount: CreateAccount,
-          concludedRegister: ConcludedRegister
+          concludedRegister: ConcludedRegister,          
      }
 
      const user = {
           landing: Landing,
           giveClasses: GiveClasses,
-          study: StudyTabs
+          study: StudyTabs,
+          concludedRegisterProffy: ConcludedRegisterProffy         
      }
            
      return (

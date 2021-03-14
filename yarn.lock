@@ -1715,6 +1715,11 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/viewpager/-/viewpager-4.2.3.tgz#ccff95a43f63f14c3b90edac00d1e05c99a79282"
   integrity sha512-tb462+nvjlcjRoRUxManaabkRwqKi0fI2I0Ztub/zXzvS06JaVIyv7BHUqivkWRUKw4OGFkhQwkEc0spPHbV/A==
 
+"@react-native-picker/picker@1.9.2":
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/@react-native-picker/picker/-/picker-1.9.2.tgz#c5e35f97d7982d2971ee3d74b1ba8ecf4b716627"
+  integrity sha512-eNMf5uF67CsiJ9SDzofSWKu9Gh2PDyPbCSXuUJ09tkRgcOefDx6DyQnXCOPCd+8vxC1DzJKVAgLy+s425jUIeA==
+
 "@react-navigation/bottom-tabs@^5.8.0":
   version "5.11.8"
   resolved "https://registry.yarnpkg.com/@react-navigation/bottom-tabs/-/bottom-tabs-5.11.8.tgz#0af8d5859b1ad781bdd86e8236ceaed60dc355fe"

@@ -21,14 +21,16 @@ const styles = StyleSheet.create({
     title: {
         maxWidth: 240,
         marginBottom: '25%',
-        marginRight: 10
+        marginRight: 10,
+        marginLeft: -102
     },
 
     subTitle: {        
         fontFamily: 'Poppins_400Regular',
         color: '#D4C2FF',
         fontSize: 14,
-        lineHeight: 24,              
+        lineHeight: 24,
+        marginLeft: -50             
     },
 
     header: {
@@ -44,19 +46,43 @@ const styles = StyleSheet.create({
         color: '#32264D',
         fontSize: 20,
         lineHeight: 30,
+        marginLeft: -8   
     },
 
     titleSectionLine: {
         borderBottomWidth: 2,
         borderBottomColor: '#E6E6F0',
-        width: 316,
-        margin: 8,           
+        width: 311,                   
     },
 
     profile: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'
+    },
+
+    avatarUpload: {
+        width: 80,
+        height: 80,
+        borderRadius: 48,
+        backgroundColor: "#9C98A6",
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    textUpload: {
+        color: '#ffff',
+        fontFamily: 'Poppins_400Regular',
+        fontSize: 14,
+        lineHeight: 24,
+    },
+
+    iconUpload:{         
+        width: 30,
+        height: 30,
+        borderRadius: 22,        
+        marginTop: 50,
+        marginLeft: -25        
     },
 
     avatar: {
@@ -138,68 +164,12 @@ const styles = StyleSheet.create({
         color: '#8257E5',
         fontSize: 14,
         lineHeight: 26,
-        marginLeft: 8
-    },
-    containerSelected: {
-        width: 311,
-        height: 64,
-        padding: 0,
-        paddingRight:16, 
-        borderRadius: 10,
-        borderWidth: 2,
-        borderColor: '#E6E6F0',             
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: '#FAFAFC',
-    },
-
-    selectedPicker: {
-        height: 50, 
-        width: 311,
-        fontSize: 14,
-        fontFamily: 'Poppins_400Regular',
-        lineHeight: 24,
-        color: '#6A6180'
+        marginRight: 10             
     },
 
     availableTime: {        
         flexDirection: 'row',        
     },
-
-    containerAvailableTime: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 20
-    },
-
-    inputAvailableTime: {
-        flex: 1,
-        fontSize: 14,
-        fontFamily: 'Poppins_400Regular',
-        lineHeight: 24,
-        marginLeft: 20,
-        color: '#6A6180'
-    },
-    inputContainerAvailableTime: {
-        width: 139,
-        height: 64,
-        padding: 0,
-        paddingRight:16, 
-        borderRadius: 10,
-        borderWidth: 2,
-        borderColor: '#E6E6F0',             
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: '#FAFAFC',
-        marginRight: 17,       
-    },
-
-    labelAvailableTime: {
-        color: '#9C98A6',
-        fontFamily: 'Poppins_400Regular',
-        marginTop: 20
-    },    
 
     footer: {
         backgroundColor: '#FAFAFC',

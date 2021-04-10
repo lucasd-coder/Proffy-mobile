@@ -30,6 +30,7 @@ import CheckBox from '../../components/Checkbox';
 import styles from './styles';
 
 function PageLogin() {
+
     const [toggleCheckBox, setToggleCheckBox] = useState(false);
     const [passwordText, setPasswordText] = useState('');
     const [emailText, setEmailText] = useState('');

@@ -11,7 +11,10 @@ import {
     ViewStyle,
     TextStyle
 } from 'react-native';
+
 import { TouchableOpacity } from 'react-native-gesture-handler';
+
+import { maskCep, maskCurrency, maskPhone, maskHours } from '../../util/mask';
 
 import styles from './styles';
 
@@ -23,10 +26,11 @@ interface InputProps extends TextInputProps {
     isFocusedBorder?: boolean;
     labelStyleFilled?: StyleProp<TextStyle>;
     styleContainer?:  StyleProp<ViewStyle>;
-   
+    mask: "cep" | "phone" | "currency" | "hours";
+    inputMaskChange: any;   
 }
 
-const Input: React.FC<InputProps> = ({
+const InputMask: React.FC<InputProps> = ({
     icon, 
     label, 
     iconPress, 
@@ -34,6 +38,8 @@ const Input: React.FC<InputProps> = ({
     isFocusedBorder, 
     inputRef,
     styleContainer,
+    mask,
+    inputMaskChange,
     ...rest}) => {
 
     const [isFocused, setIsFocused] = useState(false);
@@ -61,10 +67,30 @@ const Input: React.FC<InputProps> = ({
       const handleInputFocus = useCallback(() => {
         setIsFocused(true);
       }, []);
-
+     
       const handleInputBlur = useCallback(() => {
           setIsFocused(false);
-      }, [])    
+      }, []);
+      
+      function handleChange(text: string) {
+        if (mask === "cep") {
+          const value = maskCep(text);
+          inputMaskChange(value);
+        }
+        if (mask === "phone") {
+          const value = maskPhone(text);
+          inputMaskChange(value);
+        }
+        if (mask === "currency") {
+          const value = maskCurrency(text);
+          inputMaskChange(value);
+        }
+
+        if(mask === "hours") {
+          const value = maskHours(text);
+          inputMaskChange(value);
+        }
+      }
     
     return (
         <View style={[styles.contaier, styleContainer]} >
@@ -82,8 +108,8 @@ const Input: React.FC<InputProps> = ({
                 {...rest} 
                 ref={inputRef}
                 onBlur={handleInputBlur}
-                onFocus={handleInputFocus}               
-                 
+                onFocus={handleInputFocus} 
+                onChangeText={(text) => handleChange(text)}                               
             />
 
             {icon && 
@@ -98,4 +124,4 @@ const Input: React.FC<InputProps> = ({
 
 
 
-export default Input;
+export default InputMask;

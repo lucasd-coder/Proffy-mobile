@@ -80,15 +80,15 @@ function TeacherList() {
                                 <Image source={find} style={styles.find}/>
                                 <Text style={styles.totalProffy}> {`${totalProffys}  proffys`} </Text>
                         </View>
-                        <View style={styles.containerFilter} >
-                             <BorderlessButton onPress={handlerToggleFiltersVisible}> 
-                                <Feather name="filter" size={20} color='#04D361' />
-                             </BorderlessButton> 
-
+                        
+                        <BorderlessButton style={styles.containerFilter} onPress={handlerToggleFiltersVisible}> 
+                            <Feather name="filter" size={20} color='#04D361' />
+                        
                             <Text style={styles.textFilter}>Filtrar por dia, hora e matéria</Text>
                             <Image source={isFiltersVisible ? notVector : vector} style={styles.imageFilterVisible}/>
-                            <View style={styles.filterLine}/>                                                        
-                        </View>
+                            <View style={styles.filterLine}/>
+                        </BorderlessButton>                                                         
+                        
                      </>                     
                  )}
 
